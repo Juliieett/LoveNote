@@ -1,0 +1,230 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow: hidden;
+}
+
+.window {
+  width: 400px;
+  height: 600px;
+  background: linear-gradient(135deg, #fff9e6 0%, #ffe6f0 100%);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.header {
+  height: 40px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-app-region: drag;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px 12px 0 0;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.close-btn {
+  -webkit-app-region: no-drag;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: rgba(255, 0, 0, 0.1);
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background: rgba(255, 0, 0, 0.3);
+}
+
+#canvas {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 40px);
+  cursor: crosshair;
+  z-index: 1;
+}
+
+#textArea {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 40px);
+  padding: 20px;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  color: #333;
+  resize: none;
+  outline: none;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#textArea:focus {
+  pointer-events: auto;
+}
+
+.emoji-toolbar {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.emoji-toolbar.active {
+  display: flex;
+}
+
+.emoji-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.emoji-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(1.1);
+}
+
+.color-palette {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.color-palette.active {
+  display: flex;
+}
+
+.color-btn {
+  width: 32px;
+  height: 32px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.color-btn[data-color="#000000"] { background: #000000; }
+.color-btn[data-color="#FF6B6B"] { background: #FF6B6B; }
+.color-btn[data-color="#4ECDC4"] { background: #4ECDC4; }
+.color-btn[data-color="#45B7D1"] { background: #45B7D1; }
+.color-btn[data-color="#FFA07A"] { background: #FFA07A; }
+.color-btn[data-color="#98D8C8"] { background: #98D8C8; }
+.color-btn[data-color="#F7DC6F"] { background: #F7DC6F; }
+.color-btn[data-color="#BB8FCE"] { background: #BB8FCE; }
+
+.color-btn:hover {
+  transform: scale(1.15);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.color-btn.active {
+  border-color: rgba(0, 0, 0, 0.6);
+  border-width: 3px;
+  transform: scale(1.2);
+}
+
+.tool-selector {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  align-items: center;
+}
+
+.tool-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.tool-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.tool-btn.active {
+  background: rgba(255, 105, 180, 0.3);
+}
+
+.send-btn {
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF69B4 100%);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 20px;
+  margin-left: 8px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(255, 105, 180, 0.3);
+}
+
+.send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.5);
+}
+
+.send-btn:active {
+  transform: translateY(0);
+}
+
+.send-btn.sending {
+  opacity: 0.6;
+  pointer-events: none;
+}

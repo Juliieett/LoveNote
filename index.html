@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LoveNote</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="window">
+    <!-- Draggable header -->
+    <div class="header" id="header">
+      <div class="title">💕 LoveNote</div>
+      <button class="close-btn" id="closeBtn">×</button>
+    </div>
+
+    <!-- Canvas layer -->
+    <canvas id="canvas"></canvas>
+
+    <!-- Text layer -->
+    <textarea id="textArea" placeholder="Type here..."></textarea>
+
+    <!-- Emoji toolbar -->
+    <div class="emoji-toolbar">
+      <button class="emoji-btn" data-emoji="❤️">❤️</button>
+      <button class="emoji-btn" data-emoji="😊">😊</button>
+      <button class="emoji-btn" data-emoji="🌟">🌟</button>
+      <button class="emoji-btn" data-emoji="☀️">☀️</button>
+      <button class="emoji-btn" data-emoji="🌙">🌙</button>
+    </div>
+
+    <!-- Color palette -->
+    <div class="color-palette">
+      <button class="color-btn active" data-color="#000000"></button>
+      <button class="color-btn" data-color="#FF6B6B"></button>
+      <button class="color-btn" data-color="#4ECDC4"></button>
+      <button class="color-btn" data-color="#45B7D1"></button>
+      <button class="color-btn" data-color="#FFA07A"></button>
+      <button class="color-btn" data-color="#98D8C8"></button>
+      <button class="color-btn" data-color="#F7DC6F"></button>
+      <button class="color-btn" data-color="#BB8FCE"></button>
+    </div>
+
+    <!-- Tool selector -->
+    <div class="tool-selector">
+      <button class="tool-btn active" data-tool="draw">✏️</button>
+      <button class="tool-btn" data-tool="emoji">😀</button>
+      <button class="tool-btn" data-tool="text">T</button>
+      <button class="tool-btn" data-tool="clear">🗑️</button>
+      <button class="send-btn" id="sendBtn">Send 💌</button>
+    </div>
+  </div>
+
+  <script type="module" src="renderer.js"></script>
+</body>
+</html>
