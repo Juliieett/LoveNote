@@ -46,18 +46,24 @@ npm start
 ## Features
 
 - ✏️ Freehand drawing with color palette
-- 😀 Emoji stamps
-- 📝 Text input
+- 😀 Emoji messages
+- 📝 Text messages
 - 🔄 Real-time sync via Firebase
 - 📌 Desktop widget - stays on background behind other windows
-- 🗑️ Clear your own drawings
-- 💌 Send button for explicit sync
+- 💬 Chat-style layout - your messages on right, partner's on left
+- 💌 Send button to share messages
+
+## How to Use
+
+1. **Text Mode** (default): Type and press Enter or click Send 💌
+2. **Draw Mode** ✏️: Draw on canvas, click Send 💌 to share
+3. **Emoji Mode** 😀: Click an emoji to send it instantly
+4. **Clear** 🗑️: Clears current input (doesn't delete sent messages)
 
 ## Data Model
 
-Each user writes to their own fields:
-- `user1Strokes` / `user2Strokes` - drawing strokes
-- `user1Stamps` / `user2Stamps` - emoji stamps
-- `user1Text` / `user2Text` - text content
+Each user has their own message array:
+- `user1Messages` - Array of messages from user 1
+- `user2Messages` - Array of messages from user 2
 
-Partner's content appears below yours.
+Messages are displayed chronologically in chat bubbles.

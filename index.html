@@ -14,40 +14,43 @@
       <button class="close-btn" id="closeBtn">×</button>
     </div>
 
-    <!-- Canvas layer -->
-    <canvas id="canvas"></canvas>
+    <div class="main-container">
+      <!-- LEFT: Received notes from partner -->
+      <div class="received-panel">
+        <div class="panel-header">From Them 💌</div>
+        <div class="notes-container" id="receivedNotes">
+          <div class="empty-state">No notes yet...</div>
+        </div>
+      </div>
 
-    <!-- Text layer -->
-    <textarea id="textArea" placeholder="Type here..."></textarea>
+      <!-- RIGHT: Your drawing area -->
+      <div class="send-panel">
+        <div class="panel-header">Your Note ✏️</div>
+        
+        <!-- Canvas for drawing -->
+        <canvas id="canvas"></canvas>
+        
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <!-- Color palette -->
+          <div class="color-palette">
+            <button class="color-btn active" data-color="#000000"></button>
+            <button class="color-btn" data-color="#FF6B6B"></button>
+            <button class="color-btn" data-color="#4ECDC4"></button>
+            <button class="color-btn" data-color="#45B7D1"></button>
+            <button class="color-btn" data-color="#FFA07A"></button>
+            <button class="color-btn" data-color="#98D8C8"></button>
+            <button class="color-btn" data-color="#F7DC6F"></button>
+            <button class="color-btn" data-color="#BB8FCE"></button>
+          </div>
 
-    <!-- Emoji toolbar -->
-    <div class="emoji-toolbar">
-      <button class="emoji-btn" data-emoji="❤️">❤️</button>
-      <button class="emoji-btn" data-emoji="😊">😊</button>
-      <button class="emoji-btn" data-emoji="🌟">🌟</button>
-      <button class="emoji-btn" data-emoji="☀️">☀️</button>
-      <button class="emoji-btn" data-emoji="🌙">🌙</button>
-    </div>
-
-    <!-- Color palette -->
-    <div class="color-palette">
-      <button class="color-btn active" data-color="#000000"></button>
-      <button class="color-btn" data-color="#FF6B6B"></button>
-      <button class="color-btn" data-color="#4ECDC4"></button>
-      <button class="color-btn" data-color="#45B7D1"></button>
-      <button class="color-btn" data-color="#FFA07A"></button>
-      <button class="color-btn" data-color="#98D8C8"></button>
-      <button class="color-btn" data-color="#F7DC6F"></button>
-      <button class="color-btn" data-color="#BB8FCE"></button>
-    </div>
-
-    <!-- Tool selector -->
-    <div class="tool-selector">
-      <button class="tool-btn active" data-tool="draw">✏️</button>
-      <button class="tool-btn" data-tool="emoji">😀</button>
-      <button class="tool-btn" data-tool="text">T</button>
-      <button class="tool-btn" data-tool="clear">🗑️</button>
-      <button class="send-btn" id="sendBtn">Send 💌</button>
+          <!-- Tools -->
+          <div class="tool-controls">
+            <button class="tool-btn" id="clearBtn" title="Clear canvas">🗑️</button>
+            <button class="send-btn" id="sendBtn">Send 💌</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

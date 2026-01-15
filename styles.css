@@ -10,13 +10,15 @@ body {
 }
 
 .window {
-  width: 400px;
+  width: 800px;
   height: 600px;
   background: linear-gradient(135deg, #fff9e6 0%, #ffe6f0 100%);
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -30,6 +32,7 @@ body {
   padding: 0 16px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 12px 12px 0 0;
+  flex-shrink: 0;
 }
 
 .title {
@@ -54,92 +57,122 @@ body {
   background: rgba(255, 0, 0, 0.3);
 }
 
-#canvas {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 40px);
-  cursor: crosshair;
-  z-index: 1;
-}
-
-#textArea {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 40px);
-  padding: 20px;
-  border: none;
-  background: transparent;
-  font-size: 16px;
-  color: #333;
-  resize: none;
-  outline: none;
-  z-index: 0;
-  pointer-events: none;
-}
-
-#textArea:focus {
-  pointer-events: auto;
-}
-
-.emoji-toolbar {
-  position: absolute;
-  bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: none;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 8px;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 10;
-}
-
-.emoji-toolbar.active {
+/* Main container - split screen */
+.main-container {
+  flex: 1;
   display: flex;
-}
-
-.emoji-btn {
-  width: 40px;
-  height: 40px;
-  border: none;
-  background: transparent;
-  font-size: 24px;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.2s;
-}
-
-.emoji-btn:hover {
+  gap: 1px;
   background: rgba(0, 0, 0, 0.1);
-  transform: scale(1.1);
+}
+
+/* LEFT panel - received notes */
+.received-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.panel-header {
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  background: rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.notes-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.empty-state {
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  padding: 40px 20px;
+}
+
+.note-item {
+  background: white;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.3s ease;
+}
+
+.note-item img {
+  width: 100%;
+  border-radius: 6px;
+  display: block;
+}
+
+.note-timestamp {
+  font-size: 10px;
+  color: #999;
+  margin-top: 6px;
+  text-align: right;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* RIGHT panel - your drawing area */
+.send-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+#canvas {
+  width: calc(100% - 24px);
+  height: 0;
+  flex-grow: 1;
+  background: white;
+  cursor: crosshair;
+  display: block;
+  margin: 12px;
+  margin-bottom: 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Toolbar at bottom of right panel */
+.toolbar {
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .color-palette {
-  position: absolute;
-  bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: none;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 8px;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 10;
-}
-
-.color-palette.active {
   display: flex;
+  gap: 6px;
+  justify-content: center;
 }
 
 .color-btn {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border: 2px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   cursor: pointer;
@@ -163,54 +196,49 @@ body {
 .color-btn.active {
   border-color: rgba(0, 0, 0, 0.6);
   border-width: 3px;
-  transform: scale(1.2);
+  transform: scale(1.15);
 }
 
-.tool-selector {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+.tool-controls {
   display: flex;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 8px;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 10;
+  justify-content: center;
   align-items: center;
 }
 
 .tool-btn {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border: none;
-  background: transparent;
-  font-size: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
   cursor: pointer;
   border-radius: 8px;
   transition: all 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .tool-btn:hover {
-  background: rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: white;
 }
 
-.tool-btn.active {
-  background: rgba(255, 105, 180, 0.3);
+.tool-btn:active {
+  transform: translateY(0);
 }
 
 .send-btn {
-  height: 40px;
-  padding: 0 16px;
+  flex: 1;
+  height: 38px;
+  padding: 0 24px;
   border: none;
   background: linear-gradient(135deg, #FF6B6B 0%, #FF69B4 100%);
   color: white;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  border-radius: 20px;
-  margin-left: 8px;
+  border-radius: 19px;
   transition: all 0.2s;
   box-shadow: 0 2px 8px rgba(255, 105, 180, 0.3);
 }
@@ -227,4 +255,22 @@ body {
 .send-btn.sending {
   opacity: 0.6;
   pointer-events: none;
+}
+
+/* Scrollbar styling */
+.notes-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notes-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notes-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.notes-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
 }
